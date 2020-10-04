@@ -12,6 +12,7 @@ public class UILogic : MonoBehaviour
 
     // prefabs
     [SerializeField]
+    public GameObject lightPrefab;
     public GameObject cubePrefab;
     public GameObject spherePrefab;
     public GameObject marksmanPrefab;
@@ -88,6 +89,15 @@ public class UILogic : MonoBehaviour
         Debug.Log("rock");
     }
 
+    public void SpawnLight()
+    {
+        if (curObject)
+        {
+            Destroy(curObject);
+        }
+        curObject = Instantiate<GameObject>(lightPrefab, GetSpawnLocation(), GetSpawnRotation());
+        Debug.Log("light");
+    }
 
 
     // utils
