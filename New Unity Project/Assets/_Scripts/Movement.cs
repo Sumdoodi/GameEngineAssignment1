@@ -13,9 +13,11 @@ public class Movement : MonoBehaviour
     public float mouseSensitivity = 500;
     public float speed = 15.0f;
 
-    bool cursorVisable = false;
+    bool cursorVisible = false;
+    int selectedState = 0;
     float xRotation = 0f;
     float yRotation = 0f;
+    GameObject selected;
 
     // Start is called before the first frame update
     void Start()
@@ -28,71 +30,231 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            cursorVisable = !cursorVisable;
+            cursorVisible = !cursorVisible;
         }
 
-        if (cursorVisable)
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            selectedState = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            selectedState = 1;
+        } 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            selectedState = 2;
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            selectedState = 3;
+        }
+
+        if (cursorVisible)
         {
             showCursor();
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hitinfo = new RaycastHit();
+                bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitinfo);
+                if (hit)
+                {
+                    Debug.Log("Hit " + hitinfo.transform.gameObject.name);
+
+                    selected = hitinfo.transform.gameObject;
+                    hideCursor();
+                }
+                else
+                {
+                    selected = null;
+                }
+            }
         }
-        else if (!cursorVisable)
+        else if (!cursorVisible)
         {
             hideCursor();
-            mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-            xRotation -= mouseY;
-            yRotation += mouseX;
-            xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
-
-            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0.0f);
-
-            //transform.Rotate(Vector3.up * mouseY);
-
-            //Directional Movement
-            posX = Input.GetAxis("Horizontal");
-            posZ = Input.GetAxis("Vertical");
-
-            Vector3 move = transform.right * posX + transform.forward * posZ;
-
-            Vector3 yMove = move;
-            if (Input.GetKeyDown(KeyCode.Space))
+            //Camera movement
             {
-                posY = 1;
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                posY = -1;
+                mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+                mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+                xRotation -= mouseY;
+                yRotation += mouseX;
+                xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
+
+                transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0.0f);
+
+                //transform.Rotate(Vector3.up * mouseY);
+
+                //Directional Movement
+                posX = Input.GetAxis("Horizontal");
+                posZ = Input.GetAxis("Vertical");
+
+                Vector3 move = transform.right * posX + transform.forward * posZ;
+
+                Vector3 yMove = move;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    posY = 1;
+                }
+                else if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    posY = -1;
+                }
+
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    posY = 0;
+                }
+                else if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    posY = 0;
+                }
+
+                yMove = transform.up * posY;
+
+                move = new Vector3(move.x, yMove.y, move.z);
+                transform.position += move * speed * Time.deltaTime;
             }
 
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (selected != null)
             {
-                posY = 0;
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                posY = 0;
-            }
 
-            yMove = transform.up * posY;
+                //Selected object transform
+                if (selectedState == 1)
+                {
+                    Vector3 selectedObjectVec = new Vector3(0.0f, 0.0f, 0.0f);
 
-            move = new Vector3(move.x, yMove.y, move.z);
-            transform.position += move * speed * Time.deltaTime;
+                    if (Input.GetKeyDown(KeyCode.O))
+                    {
+                        //+Z
+                        selectedObjectVec = new Vector3(0.0f, 0.0f, 1.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.J))
+                    {
+                        //-X
+                        selectedObjectVec = new Vector3(-1.0f, 0.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.L))
+                    {
+                        //-Z
+                        selectedObjectVec = new Vector3(0.0f, 0.0f, -1.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.U))
+                    {
+                        //+X
+                        selectedObjectVec = new Vector3(1.0f, 0.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        //-Y
+                        selectedObjectVec = new Vector3(0.0f, -1.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.I))
+                    {
+                        //+Y
+                        selectedObjectVec = new Vector3(0.0f, 1.0f, 0.0f);
+                    }
+
+                    selected.transform.position += selectedObjectVec;
+                }
+
+                //Selected object rotation
+                if (selectedState == 2)
+                {
+                    Vector3 selectedObjectVec = new Vector3(0.0f, 0.0f, 0.0f);
+
+                    if (Input.GetKeyDown(KeyCode.O))
+                    {
+                        //+Z
+                        selectedObjectVec = new Vector3(0.0f, 0.0f, 1.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.J))
+                    {
+                        //-X
+                        selectedObjectVec = new Vector3(selected.transform.localRotation.x - 1.0f, 0.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.L))
+                    {
+                        //-Z
+                        selectedObjectVec = new Vector3(0.0f, 0.0f, selected.transform.localRotation.z - 1.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.U))
+                    {
+                        //+X
+                        selectedObjectVec = new Vector3(selected.transform.localRotation.x + 1.0f, 0.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        //-Y
+                        selectedObjectVec = new Vector3(0.0f, selected.transform.localRotation.y - 1.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.I))
+                    {
+                        //+Y
+                        selectedObjectVec = new Vector3(0.0f, selected.transform.localRotation.y + 1.0f, 0.0f);
+                    }
+
+                    selected.transform.Rotate(selectedObjectVec);
+                }
+
+                //Selected object scale
+                if (selectedState == 3)
+                {
+                    Vector3 selectedObjectVec = new Vector3(0.0f, 0.0f, 0.0f);
+
+                    if (Input.GetKeyDown(KeyCode.O))
+                    {
+                        //+Z
+                        selectedObjectVec = new Vector3(0.0f, 0.0f, 1.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.J))
+                    {
+                        //-X
+                        selectedObjectVec = new Vector3(selected.transform.localRotation.x - 1.0f, 0.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.L))
+                    {
+                        //-Z
+                        selectedObjectVec = new Vector3(0.0f, 0.0f, selected.transform.localRotation.z - 1.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.U))
+                    {
+                        //+X
+                        selectedObjectVec = new Vector3(selected.transform.localRotation.x + 1.0f, 0.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        //-Y
+                        selectedObjectVec = new Vector3(0.0f, selected.transform.localRotation.y - 1.0f, 0.0f);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.I))
+                    {
+                        //+Y
+                        selectedObjectVec = new Vector3(0.0f, selected.transform.localRotation.y + 1.0f, 0.0f);
+                    }
+
+                    selected.transform.localScale += selectedObjectVec;
+                }
+            }
         }
     }
 
     void hideCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        cursorVisible = false;
     }
 
     void showCursor()
     {
         Cursor.lockState = CursorLockMode.None;
+        cursorVisible = true;
     }
 
     public bool cursorState()
     {
-        return cursorVisable;
+        return cursorVisible;
     }
 }

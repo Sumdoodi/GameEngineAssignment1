@@ -21,8 +21,9 @@ public class UILogic : MonoBehaviour
     // vars
     [SerializeField]
     public float placementDistance = 10.0f;
-
+    public bool legendIsVisible = false;
     GameObject curObject;
+    public GameObject legendImage;
 
     // Update is called once per frame
     void Update()
@@ -46,7 +47,7 @@ public class UILogic : MonoBehaviour
         }
 
         curObject.transform.position = GetSpawnLocation();
-        curObject.transform.rotation = GetSpawnRotation();
+        // curObject.transform.rotation = GetSpawnRotation();
     }
 
     public void SpawnCube()
@@ -110,6 +111,12 @@ public class UILogic : MonoBehaviour
 
         GameObject temp = Instantiate<GameObject>(curObject);
         Destroy(curObject);
+    }
+
+    public void ToggleLegend()
+    {
+        legendIsVisible = !legendIsVisible;
+        legendImage.SetActive(legendIsVisible);
     }
 
     public Vector3 GetSpawnLocation()
