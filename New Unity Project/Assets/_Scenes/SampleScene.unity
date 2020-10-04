@@ -332,6 +332,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 895723952}
+  player: {fileID: 963194227}
+  cubePrefab: {fileID: 2076623589460671019, guid: 4609f2412f61de244a3ca5615603fb48,
+    type: 3}
+  spherePrefab: {fileID: 1443329364046810914, guid: a8f58e27967e81b4da8971e4e430ca61,
+    type: 3}
+  placementDistance: 7.39
 --- !u!1 &490985755
 GameObject:
   m_ObjectHideFlags: 0
