@@ -465,7 +465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 895723952}
   player: {fileID: 963194227}
-  lightPrefab: {fileID: 6056060160214827579, guid: bf000c55907f0c944825cc920125bf01,
+  lightPrefab: {fileID: 2066097494573317307, guid: e0fa3bac6145f3f44b669eca0eeb5cee,
     type: 3}
   cubePrefab: {fileID: 2076623589460671019, guid: 4609f2412f61de244a3ca5615603fb48,
     type: 3}
