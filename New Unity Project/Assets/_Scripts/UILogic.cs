@@ -7,34 +7,91 @@ public class UILogic : MonoBehaviour
     // references
     [SerializeField]
     public GameObject canvas;
-    [SerializeField]
     public Camera player;
 
     // prefabs
     [SerializeField]
     public GameObject cubePrefab;
-    [SerializeField]
     public GameObject spherePrefab;
+    public GameObject marksmanPrefab;
+    public GameObject rockPrefab;
 
     // vars
-    public float placementDistance = 1.0f;
+    [SerializeField]
+    public float placementDistance = 10.0f;
+
+    GameObject curObject;
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!curObject)
+        {
+            return;
+        }
+
+        bool inMenu = player.GetComponent<Movement>().cursorState();
+        if (!inMenu && Input.GetKeyDown(KeyCode.Mouse0)) 
+        {
+            PlaceObject();
+        }
+
+        curObject.transform.position = GetSpawnLocation();
+        curObject.transform.rotation = GetSpawnRotation();
     }
 
     public void SpawnCube()
     {
-        Instantiate<GameObject>(cubePrefab, GetSpawnLocation(), GetSpawnRotation());
+        if (curObject)
+        {
+            Destroy(curObject);
+        }
+        curObject = Instantiate<GameObject>(cubePrefab, GetSpawnLocation(), GetSpawnRotation());
         Debug.Log("Cube");
     }
 
     public void SpawnSphere()
     {
-        Instantiate<GameObject>(spherePrefab, GetSpawnLocation(), GetSpawnRotation());
+        if (curObject)
+        {
+            Destroy(curObject);
+        }
+        curObject = Instantiate<GameObject>(spherePrefab, GetSpawnLocation(), GetSpawnRotation());
         Debug.Log("Sphere");
+    }
+
+    public void SpawnMarksman()
+    {
+        if (curObject)
+        {
+            Destroy(curObject);
+        }
+        curObject = Instantiate<GameObject>(marksmanPrefab, GetSpawnLocation(), GetSpawnRotation());
+        Debug.Log("marksman");
+    }
+
+    public void SpawnRock()
+    {
+        if (curObject)
+        {
+            Destroy(curObject);
+        }
+        curObject = Instantiate<GameObject>(rockPrefab, GetSpawnLocation(), GetSpawnRotation());
+        Debug.Log("rock");
+    }
+
+
+
+    // utils
+    public void PlaceObject()
+    {
+        if (!curObject)
+        {
+            return;
+        }
+
+        GameObject temp = Instantiate<GameObject>(curObject);
+        Destroy(curObject);
     }
 
     public Vector3 GetSpawnLocation()
@@ -47,7 +104,7 @@ public class UILogic : MonoBehaviour
 
     public Quaternion GetSpawnRotation()
     {
-
-        return new Quaternion();
+        Quaternion cameraRot = Quaternion.LookRotation(player.transform.forward);
+        return cameraRot;
     }
 }
