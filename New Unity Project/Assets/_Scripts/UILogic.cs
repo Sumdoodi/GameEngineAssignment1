@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class UILogic : MonoBehaviour
 {
@@ -31,9 +32,16 @@ public class UILogic : MonoBehaviour
         }
 
         bool inMenu = player.GetComponent<Movement>().cursorState();
+       
         if (!inMenu && Input.GetKeyDown(KeyCode.Mouse0)) 
         {
             PlaceObject();
+        }
+
+        if (Input.mouseScrollDelta != new Vector2(0,0))
+        {
+            placementDistance += Input.mouseScrollDelta.y;
+            Debug.Log(placementDistance);
         }
 
         curObject.transform.position = GetSpawnLocation();
