@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
     float xRotation = 0f;
     float yRotation = 0f;
     GameObject selected;
+    GameObject prevSelected;
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +63,7 @@ public class Movement : MonoBehaviour
                     Debug.Log("Hit " + hitinfo.transform.gameObject.name);
 
                     selected = hitinfo.transform.gameObject;
+                    prevSelected = hitinfo.transform.gameObject;
                     hideCursor();
                 }
                 else
@@ -256,5 +258,10 @@ public class Movement : MonoBehaviour
     public bool cursorState()
     {
         return cursorVisible;
+    }
+
+    public GameObject returnSelected()
+    {
+        return prevSelected;
     }
 }

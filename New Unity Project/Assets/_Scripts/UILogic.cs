@@ -9,6 +9,17 @@ public class UILogic : MonoBehaviour
     [SerializeField]
     public GameObject canvas;
     public Camera player;
+    public GameObject spawnCubeButton;
+    public GameObject spawnSphereButton;
+    public GameObject spawnMarksmanButton;
+    public GameObject spawnRockButton;
+    public GameObject spawnLightButton;
+    public GameObject matOneButton;
+    public GameObject matTwoButton;
+    public GameObject matThreeButton;
+    public Material red;
+    public Material blue;
+    public Material green;
 
     // prefabs
     [SerializeField]
@@ -21,7 +32,11 @@ public class UILogic : MonoBehaviour
     // vars
     [SerializeField]
     public float placementDistance = 10.0f;
+
     public bool legendIsVisible = false;
+    public bool objectsButtonsVisible = false;
+    public bool matrialsButtonsVisible = false;
+
     GameObject curObject;
     public GameObject legendImage;
 
@@ -50,6 +65,26 @@ public class UILogic : MonoBehaviour
         // curObject.transform.rotation = GetSpawnRotation();
     }
 
+    // menu toggles
+    public void ShowObjects()
+    {
+        objectsButtonsVisible = !objectsButtonsVisible;
+        spawnCubeButton.SetActive(objectsButtonsVisible);
+        spawnSphereButton.SetActive(objectsButtonsVisible);
+        spawnMarksmanButton.SetActive(objectsButtonsVisible);
+        spawnRockButton.SetActive(objectsButtonsVisible);
+        spawnLightButton.SetActive(objectsButtonsVisible);
+    }
+
+    public void ShowMaterials()
+    {
+        matrialsButtonsVisible = !matrialsButtonsVisible;
+        matOneButton.SetActive(matrialsButtonsVisible);
+        matTwoButton.SetActive(matrialsButtonsVisible);
+        matThreeButton.SetActive(matrialsButtonsVisible);
+    }
+
+    // spawners
     public void SpawnCube()
     {
         if (curObject)
@@ -100,6 +135,23 @@ public class UILogic : MonoBehaviour
         Debug.Log("light");
     }
 
+    public void AssignRedMaterial()
+    {
+        GameObject temp = player.GetComponent<Movement>().returnSelected();
+        temp.GetComponent<MeshRenderer>().material = red;
+    }
+
+    public void AssignGreenMaterial()
+    {
+        GameObject temp = player.GetComponent<Movement>().returnSelected();
+        temp.GetComponent<MeshRenderer>().material = green;
+    }
+
+    public void AssignBlueMaterial()
+    {
+        GameObject temp = player.GetComponent<Movement>().returnSelected();
+        temp.GetComponent<MeshRenderer>().material = blue;
+    }
 
     // utils
     public void PlaceObject()
