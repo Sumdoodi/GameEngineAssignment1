@@ -37,6 +37,12 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             selectedState = 0;
+            if (selected != null)
+            {
+                selected.GetComponent<MeshRenderer>().material.color = new Color(selected.GetComponent<MeshRenderer>().material.color.r,
+                    selected.GetComponent<MeshRenderer>().material.color.b, selected.GetComponent<MeshRenderer>().material.color.g, 1.0f);
+                selected = null;
+            }
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -61,6 +67,12 @@ public class Movement : MonoBehaviour
                 if (hit)
                 {
                     Debug.Log("Hit " + hitinfo.transform.gameObject.name);
+
+                    if (selected != null)
+                    {
+                        selected.GetComponent<MeshRenderer>().material.color = new Color(selected.GetComponent<MeshRenderer>().material.color.r,
+                            selected.GetComponent<MeshRenderer>().material.color.b, selected.GetComponent<MeshRenderer>().material.color.g, 1.0f);
+                    }
 
                     selected = hitinfo.transform.gameObject;
                     prevSelected = hitinfo.transform.gameObject;
@@ -122,7 +134,8 @@ public class Movement : MonoBehaviour
 
             if (selected != null)
             {
-
+                selected.GetComponent<MeshRenderer>().material.color = new Color(selected.GetComponent<MeshRenderer>().material.color.r,
+                        selected.GetComponent<MeshRenderer>().material.color.b, selected.GetComponent<MeshRenderer>().material.color.g, 0.25f);
                 //Selected object transform
                 if (selectedState == 1)
                 {
