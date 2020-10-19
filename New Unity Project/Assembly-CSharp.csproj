@@ -55,8 +55,32 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Scripts\Command Pattern\Rotation.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Rotation\xDownRot.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Rotation\yUpRot.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Scale\xUpScale.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Rotation\zUpRot.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Translation\xUpTrans.cs" />
     <Compile Include="Assets\_Scripts\Movement.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Translation\zUpTrans.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Scale\zUpScale.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Scale\yUpScale.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Translation\yUpTrans.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\MyTransform.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Scale\xDownScale.cs" />
     <Compile Include="Assets\_Scripts\UILogic.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Scale\yDownScale.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Rotation\yDownRot.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Rotation\xUpRot.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Command.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Translation\yDownTrans.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Translation.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Rotation\zDownRot.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Translation\zDownTrans.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Translation\xDownTrans.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Commands\Scale\zDownScale.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\Scale.cs" />
+    <Compile Include="Assets\_Scripts\Command Pattern\CommandInvoker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

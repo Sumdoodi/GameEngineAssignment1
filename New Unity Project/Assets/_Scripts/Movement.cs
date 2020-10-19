@@ -19,6 +19,8 @@ public class Movement : MonoBehaviour
     float yRotation = 0f;
     GameObject selected;
     GameObject prevSelected;
+    Stack<CommandInvoker> undoList = new Stack<CommandInvoker>();
+    Stack<CommandInvoker> redoList = new Stack<CommandInvoker>();
 
     // Start is called before the first frame update
     void Start()
@@ -136,121 +138,217 @@ public class Movement : MonoBehaviour
             {
                 selected.GetComponent<MeshRenderer>().material.color = new Color(selected.GetComponent<MeshRenderer>().material.color.r,
                         selected.GetComponent<MeshRenderer>().material.color.b, selected.GetComponent<MeshRenderer>().material.color.g, 0.25f);
+
                 //Selected object transform
                 if (selectedState == 1)
                 {
-                    Vector3 selectedObjectVec = new Vector3(0.0f, 0.0f, 0.0f);
+                    MyTransform trans = new Translation();
+                    xUpTrans xUpCommand = new xUpTrans(trans);
+                    xDownTrans xDownCommand = new xDownTrans(trans);
+                    yUpTrans yUpCommand = new yUpTrans(trans);
+                    yDownTrans yDownCommand = new yDownTrans(trans);
+                    zUpTrans zUpCommand = new zUpTrans(trans);
+                    zDownTrans zDownCommand = new zDownTrans(trans);
+                    CommandInvoker onUse = null;
 
-                    if (Input.GetKeyDown(KeyCode.O))
+                    if (Input.GetKeyDown(KeyCode.L))
                     {
-                        //+Z
-                        selectedObjectVec = new Vector3(0.0f, 0.0f, 1.0f);
+                        //+X
+                        onUse = new CommandInvoker(xUpCommand);
                     }
                     else if (Input.GetKeyDown(KeyCode.J))
                     {
                         //-X
-                        selectedObjectVec = new Vector3(-1.0f, 0.0f, 0.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.L))
-                    {
-                        //-Z
-                        selectedObjectVec = new Vector3(0.0f, 0.0f, -1.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.U))
-                    {
-                        //+X
-                        selectedObjectVec = new Vector3(1.0f, 0.0f, 0.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.K))
-                    {
-                        //-Y
-                        selectedObjectVec = new Vector3(0.0f, -1.0f, 0.0f);
+                        onUse = new CommandInvoker(xDownCommand);
                     }
                     else if (Input.GetKeyDown(KeyCode.I))
                     {
                         //+Y
-                        selectedObjectVec = new Vector3(0.0f, 1.0f, 0.0f);
+                        onUse = new CommandInvoker(yUpCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        //-Y
+                        onUse = new CommandInvoker(yDownCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.O))
+                    {
+                        //-Z moves forward/further towards the camera
+                        onUse = new CommandInvoker(zDownCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.U))
+                    {
+                        //+Z moves backwards/further away from the camera
+                        onUse = new CommandInvoker(zUpCommand);
+                    }
+                    else if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        if (Input.GetKeyDown(KeyCode.Z))
+                        {
+                            if (undoList.Count > 0)
+                            {
+                                redoList.Push(undoList.Peek());
+                                undoList.Pop().undo(selected);
+                            }
+                        }
+                        if (Input.GetKeyDown(KeyCode.X))
+                        {
+                            if (redoList.Count > 0)
+                            {
+                                undoList.Push(redoList.Peek());
+                                redoList.Pop().use(selected);
+                            }
+                        }
                     }
 
-                    selected.transform.position += selectedObjectVec;
+                    if (onUse != null)
+                    {
+                        onUse.use(selected);
+                        redoList.Clear();
+                        undoList.Push(onUse);
+                    }
                 }
 
                 //Selected object rotation
                 if (selectedState == 2)
                 {
-                    Vector3 selectedObjectVec = new Vector3(0.0f, 0.0f, 0.0f);
+                    MyTransform rot = new Rotation();
+                    xUpRot xUpCommand = new xUpRot(rot);
+                    xDownRot xDownCommand = new xDownRot(rot);
+                    yUpRot yUpCommand = new yUpRot(rot);
+                    yDownRot yDownCommand = new yDownRot(rot);
+                    zUpRot zUpCommand = new zUpRot(rot);
+                    zDownRot zDownCommand = new zDownRot(rot);
+                    CommandInvoker onUse = null;
 
-                    if (Input.GetKeyDown(KeyCode.O))
+                    if (Input.GetKeyDown(KeyCode.L))
                     {
-                        //+Z
-                        selectedObjectVec = new Vector3(0.0f, 0.0f, 1.0f);
+                        //+X
+                        onUse = new CommandInvoker(xUpCommand);
                     }
                     else if (Input.GetKeyDown(KeyCode.J))
                     {
                         //-X
-                        selectedObjectVec = new Vector3(selected.transform.localRotation.x - 1.0f, 0.0f, 0.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.L))
-                    {
-                        //-Z
-                        selectedObjectVec = new Vector3(0.0f, 0.0f, selected.transform.localRotation.z - 1.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.U))
-                    {
-                        //+X
-                        selectedObjectVec = new Vector3(selected.transform.localRotation.x + 1.0f, 0.0f, 0.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.K))
-                    {
-                        //-Y
-                        selectedObjectVec = new Vector3(0.0f, selected.transform.localRotation.y - 1.0f, 0.0f);
+                        onUse = new CommandInvoker(xDownCommand);
                     }
                     else if (Input.GetKeyDown(KeyCode.I))
                     {
                         //+Y
-                        selectedObjectVec = new Vector3(0.0f, selected.transform.localRotation.y + 1.0f, 0.0f);
+                        onUse = new CommandInvoker(yUpCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        //-Y
+                        onUse = new CommandInvoker(yDownCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.O))
+                    {
+                        //-Z moves forward/further towards the camera
+                        onUse = new CommandInvoker(zDownCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.U))
+                    {
+                        //+Z moves backwards/further away from the camera
+                        onUse = new CommandInvoker(zUpCommand);
+                    }
+                    else if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        if (Input.GetKeyDown(KeyCode.Z))
+                        {
+                            if (undoList.Count > 0)
+                            {
+                                redoList.Push(undoList.Peek());
+                                undoList.Pop().undo(selected);
+                            }
+                        }
+
+                        if (Input.GetKeyDown(KeyCode.X))
+                        {
+                            if (redoList.Count > 0)
+                            {
+                                undoList.Push(redoList.Peek());
+                                redoList.Pop().use(selected);
+                            }
+                        }
                     }
 
-                    selected.transform.Rotate(selectedObjectVec);
+                    if (onUse != null)
+                    {
+                        onUse.use(selected);
+                        redoList.Clear();
+                        undoList.Push(onUse);
+                    }
                 }
 
                 //Selected object scale
                 if (selectedState == 3)
                 {
-                    Vector3 selectedObjectVec = new Vector3(0.0f, 0.0f, 0.0f);
+                    MyTransform scale = new Scale();
+                    xUpScale xUpCommand = new xUpScale(scale);
+                    xDownScale xDownCommand = new xDownScale(scale);
+                    yUpScale yUpCommand = new yUpScale(scale);
+                    yDownScale yDownCommand = new yDownScale(scale);
+                    zUpScale zUpCommand = new zUpScale(scale);
+                    zDownScale zDownCommand = new zDownScale(scale);
+                    CommandInvoker onUse = null;
 
-                    if (Input.GetKeyDown(KeyCode.O))
+                    if (Input.GetKeyDown(KeyCode.L))
                     {
-                        //+Z
-                        selectedObjectVec = new Vector3(0.0f, 0.0f, 1.0f);
+                        //+X
+                        onUse = new CommandInvoker(xUpCommand);
                     }
                     else if (Input.GetKeyDown(KeyCode.J))
                     {
                         //-X
-                        selectedObjectVec = new Vector3(selected.transform.localRotation.x - 1.0f, 0.0f, 0.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.L))
-                    {
-                        //-Z
-                        selectedObjectVec = new Vector3(0.0f, 0.0f, selected.transform.localRotation.z - 1.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.U))
-                    {
-                        //+X
-                        selectedObjectVec = new Vector3(selected.transform.localRotation.x + 1.0f, 0.0f, 0.0f);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.K))
-                    {
-                        //-Y
-                        selectedObjectVec = new Vector3(0.0f, selected.transform.localRotation.y - 1.0f, 0.0f);
+                        onUse = new CommandInvoker(xDownCommand);
                     }
                     else if (Input.GetKeyDown(KeyCode.I))
                     {
                         //+Y
-                        selectedObjectVec = new Vector3(0.0f, selected.transform.localRotation.y + 1.0f, 0.0f);
+                        onUse = new CommandInvoker(yUpCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        //-Y
+                        onUse = new CommandInvoker(yDownCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.O))
+                    {
+                        //-Z moves forward/further towards the camera
+                        onUse = new CommandInvoker(zDownCommand);
+                    }
+                    else if (Input.GetKeyDown(KeyCode.U))
+                    {
+                        //+Z moves backwards/further away from the camera
+                        onUse = new CommandInvoker(zUpCommand);
+                    }
+                    else if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        if (Input.GetKeyDown(KeyCode.Z))
+                        {
+                            if (undoList.Count > 0)
+                            {
+                                redoList.Push(undoList.Peek());
+                                undoList.Pop().undo(selected);
+                            }
+                        }
+
+                        if (Input.GetKeyDown(KeyCode.X))
+                        {
+                            if (redoList.Count > 0)
+                            {
+                                undoList.Push(redoList.Peek());
+                                redoList.Pop().use(selected);
+                            }
+                        }
                     }
 
-                    selected.transform.localScale += selectedObjectVec;
+                    if (onUse != null)
+                    {
+                        onUse.use(selected);
+                        redoList.Clear();
+                        undoList.Push(onUse);
+                    }
                 }
             }
         }
