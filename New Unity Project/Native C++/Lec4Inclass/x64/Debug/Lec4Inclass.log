@@ -1,0 +1,37 @@
+﻿  GameObject.cpp
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\GameObject.h(37,24): warning C4251: 'GameObject::m_material': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GameObject'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+  LevelManager.cpp
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\GameObject.h(37,24): warning C4251: 'GameObject::m_material': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GameObject'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(17,17): error C3646: 'LoadLevel': unknown override specifier
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(17,17): error C2059: syntax error: '('
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(17,35): error C2238: unexpected token(s) preceding ';'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(18,23): error C2061: syntax error: identifier 'Level'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(21,22): error C3646: 'm_workingLevel': unknown override specifier
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(21,22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(39,20): warning C4251: 'Level::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Level'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(40,38): warning C4251: 'Level::m_objectList': class 'std::vector<GameObject,std::allocator<GameObject>>' needs to have dll-interface to be used by clients of class 'Level'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(40): message : see declaration of 'std::vector<GameObject,std::allocator<GameObject>>'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.cpp(33,21): error C2039: 'LoadLevel': is not a member of 'LevelManager'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(11): message : see declaration of 'LevelManager'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.cpp(38,43): error C2511: 'void LevelManager::SaveLevel(Level)': overloaded member function not found in 'LevelManager'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(11): message : see declaration of 'LevelManager'
+  Main.cpp
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\GameObject.h(37,24): warning C4251: 'GameObject::m_material': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GameObject'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(17,17): error C3646: 'LoadLevel': unknown override specifier
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(17,17): error C2059: syntax error: '('
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(17,35): error C2238: unexpected token(s) preceding ';'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(18,23): error C2061: syntax error: identifier 'Level'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(21,22): error C3646: 'm_workingLevel': unknown override specifier
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(21,22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(39,20): warning C4251: 'Level::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Level'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(40,38): warning C4251: 'Level::m_objectList': class 'std::vector<GameObject,std::allocator<GameObject>>' needs to have dll-interface to be used by clients of class 'Level'
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\LevelManager.h(40): message : see declaration of 'std::vector<GameObject,std::allocator<GameObject>>'
+  Wrapper.cpp
+C:\Users\steph\source\repos\GameEngineAssignment1\New Unity Project\Native C++\Lec4Inclass\Lec4Inclass\GameObject.h(37,24): warning C4251: 'GameObject::m_material': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'GameObject'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+  Generating Code...
