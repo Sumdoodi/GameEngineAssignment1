@@ -20,6 +20,14 @@ public class UILogic : MonoBehaviour
     public Material red;
     public Material blue;
     public Material green;
+    public GameObject PropsParentObj;
+
+    public GameObject save1;
+    public GameObject save2;
+    public GameObject save3;
+    public GameObject load1;
+    public GameObject load2;
+    public GameObject load3;
 
     // prefabs
     [SerializeField]
@@ -36,6 +44,10 @@ public class UILogic : MonoBehaviour
     public bool legendIsVisible = false;
     public bool objectsButtonsVisible = false;
     public bool matrialsButtonsVisible = false;
+    public bool saveButtonsVisible = false;
+    public bool loadButtonsVisible = false;
+
+    public GameObject lvlMan;
 
     GameObject curObject;
     public GameObject legendImage;
@@ -84,6 +96,21 @@ public class UILogic : MonoBehaviour
         matThreeButton.SetActive(matrialsButtonsVisible);
     }
 
+    public void ShowSave()
+    {
+        saveButtonsVisible = !saveButtonsVisible;
+        save1.SetActive(saveButtonsVisible);
+        save2.SetActive(saveButtonsVisible);
+        save3.SetActive(saveButtonsVisible);
+    }
+    public void ShowLoad()
+    {
+        loadButtonsVisible = !loadButtonsVisible;
+        load1.SetActive(loadButtonsVisible);
+        load2.SetActive(loadButtonsVisible);
+        load3.SetActive(loadButtonsVisible);
+    }
+
     // spawners
     public void SpawnCube()
     {
@@ -92,6 +119,7 @@ public class UILogic : MonoBehaviour
             Destroy(curObject);
         }
         curObject = Instantiate<GameObject>(cubePrefab, GetSpawnLocation(), GetSpawnRotation());
+        curObject.transform.SetParent(PropsParentObj.transform, false);
         Debug.Log("Cube");
     }
 
@@ -102,6 +130,7 @@ public class UILogic : MonoBehaviour
             Destroy(curObject);
         }
         curObject = Instantiate<GameObject>(spherePrefab, GetSpawnLocation(), GetSpawnRotation());
+        curObject.transform.SetParent(PropsParentObj.transform, false);
         Debug.Log("Sphere");
     }
 
@@ -112,6 +141,7 @@ public class UILogic : MonoBehaviour
             Destroy(curObject);
         }
         curObject = Instantiate<GameObject>(marksmanPrefab, GetSpawnLocation(), GetSpawnRotation());
+        curObject.transform.SetParent(PropsParentObj.transform, false);
         Debug.Log("marksman");
     }
 
@@ -122,6 +152,7 @@ public class UILogic : MonoBehaviour
             Destroy(curObject);
         }
         curObject = Instantiate<GameObject>(rockPrefab, GetSpawnLocation(), GetSpawnRotation());
+        curObject.transform.SetParent(PropsParentObj.transform, false);
         Debug.Log("rock");
     }
 
@@ -132,6 +163,7 @@ public class UILogic : MonoBehaviour
             Destroy(curObject);
         }
         curObject = Instantiate<GameObject>(lightPrefab, GetSpawnLocation(), GetSpawnRotation());
+        curObject.transform.SetParent(PropsParentObj.transform, false);
         Debug.Log("light");
     }
 
@@ -162,6 +194,7 @@ public class UILogic : MonoBehaviour
         }
 
         GameObject temp = Instantiate<GameObject>(curObject);
+        temp.transform.SetParent(PropsParentObj.transform, false);
         Destroy(curObject);
     }
 
