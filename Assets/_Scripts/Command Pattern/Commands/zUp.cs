@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class zDownRot : Command
+public class zUp : Command
 {
     MyTransform theObj;
-    public zDownRot(MyTransform newObj)
+    public zUp(MyTransform newObj)
     {
         theObj = newObj;
     }
 
     public void execute(GameObject obj)
     {
-        theObj.zDown(obj);
+        theObj.zUp(obj);
     }
 
     public void undo(GameObject obj)
     {
-        theObj.zUp(obj);
+        theObj.zDown(obj);
     }
 }

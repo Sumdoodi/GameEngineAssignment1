@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class yUpRot : Command
+public class yDown : Command
 {
     MyTransform theObj;
-    public yUpRot(MyTransform newObj)
+    public yDown(MyTransform newObj)
     {
         theObj = newObj;
     }
 
     public void execute(GameObject obj)
     {
-        theObj.yUp(obj);
+        theObj.yDown(obj);
     }
 
     public void undo(GameObject obj)
     {
-        theObj.yDown(obj);
+        theObj.yUp(obj);
     }
 }

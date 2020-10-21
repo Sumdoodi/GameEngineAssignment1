@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class zDownScale : Command
+public class yUp : Command
 {
     MyTransform theObj;
-    public zDownScale(MyTransform newObj)
+    public yUp(MyTransform newObj)
     {
         theObj = newObj;
     }
 
     public void execute(GameObject obj)
     {
-        theObj.zDown(obj);
+        theObj.yUp(obj);
     }
 
     public void undo(GameObject obj)
     {
-        theObj.zUp(obj);
+        theObj.yDown(obj);
     }
 }
