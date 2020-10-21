@@ -15,6 +15,16 @@ public class LevelManagerObject : MonoBehaviour
     // - Use DLL for reading and writing save file as well as custom logic for parsing the data to send between Unity and the DLL
     // - Create functions to be called by UI elements to execute saving and loading 
 
+    protected static LevelManagerObject instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+            Destroy(gameObject);    // Ensures that there aren't multiple Singletons
+
+        instance = this;
+    }
+
     private const string DLL_NAME = "LevelManagerPlugin";
 
     // object properties struct
